@@ -1,0 +1,7 @@
+# 10-21-2019
+
+- Test 1GPU with default learning rate  (0.01) => loss diverge at 11000 iteration!
+
+# 10-22-2019
+
+- Test 1GPU with lr = 0.001
