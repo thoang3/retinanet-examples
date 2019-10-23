@@ -1,7 +1,26 @@
 # 10-21-2019
 
-- Test 1GPU with default learning rate  (0.01) => loss diverge at 11000 iteration!
+- Test 1GPU with default learning rate  (0.01) with resnet50 => loss diverge at 11000 iteration!
+- For resnet50, cannot have batch size > 2.
 
 # 10-22-2019
 
-- Test 1GPU with lr = 0.001
+- Test 1GPU with lr = 0.001 with resnet18  => diverge after 8000
+- Try with lr = 0.0001, batch size =4 with resnet18 => seem to work ok, at 14000 now
+- Test again with lr = 0.001 with resnet18, but batch size = 4 => converge. Result after 8000 iterations:
+[ 7985/90000] focal loss: 0.651, box loss: 0.271, 0.394s/4-batch (fw: 0.163s, bw: 0.231s), 10.1 im/s, lr: 0.001
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.01435
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.03335
+
+[15872/90000] focal loss: 0.564, box loss: 0.244, 0.389s/4-batch (fw: 0.161s, bw: 0.228s), 10.3 im/s, lr: 0.001
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.03798
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.07720
+
+- For resnet34, lr = 0.001 with batch 4 seem to work (at 5200 iterations now). There's a chance of getting CUDA out of memory though. 
+
+[  7990/360000] focal loss: 0.666, box loss: 0.256, 0.390s/3-batch (fw: 0.169s, bw: 0.220s), 7.7 im/s, lr: 0.001
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.01303
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.02949
+ 
+
+- It seems like passing new learning rate when resuming training doesn't work. The model still loads previous configuration.  

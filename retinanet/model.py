@@ -3,6 +3,10 @@ import io
 import math
 import torch
 import torch.nn as nn
+import sys
+
+sys.path.append('/home/tung/playground/retinanet-examples/')
+
 
 from . import backbones as backbones_mod
 from ._C import Engine

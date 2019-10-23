@@ -7,10 +7,13 @@ import torch.cuda
 import torch.distributed
 import torch.multiprocessing
 
+sys.path.append('/home/tung/playground/retinanet-examples')
+
 from retinanet import infer, train, utils
 from retinanet.model import Model
 from retinanet import backbones
 from retinanet._C import Engine
+
 
 def parse(args):
     parser = argparse.ArgumentParser(description='RetinaNet Detection Utility.')
