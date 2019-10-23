@@ -6,12 +6,12 @@ import torch.nn as nn
 import sys
 
 sys.path.append('/home/tung/playground/retinanet-examples/')
+sys.path.append('/home/tung/playground/retinanet-examples/retinanet')
 
-
-from . import backbones as backbones_mod
-from ._C import Engine
-from .box import generate_anchors, snap_to_anchors, decode, nms
-from .loss import FocalLoss, SmoothL1Loss
+import backbones as backbones_mod
+from _C import Engine
+from box import generate_anchors, snap_to_anchors, decode, nms
+from loss import FocalLoss, SmoothL1Loss
 
 class Model(nn.Module):
     'RetinaNet - https://arxiv.org/abs/1708.02002'

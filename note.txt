@@ -23,4 +23,15 @@
  Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.02949
  
 
-- It seems like passing new learning rate when resuming training doesn't work. The model still loads previous configuration.  
+- It seems like passing new learning rate when resuming training doesn't work. The model still loads previous configuration. 
+
+# 10-23-2019
+
+- Test resnet50, lr = 0.01, warmup = 5000 => diverge at 2000 iterations
+- Test resnet50, lr = 0.005, warmup = 5000 => diverge at 5700 iterations, however, can run to 8000 iterations when resume. 
+
+[ 23957/360000] focal loss: 0.666, box loss: 0.230, 0.301s/2-batch (fw: 0.113s, bw: 0.187s), 6.6 im/s, lr: 0.005
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.01305
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.02578
+
+ 

@@ -1,6 +1,6 @@
 import torch
-from ._C import decode as decode_cuda
-from ._C import nms as nms_cuda
+from _C import decode as decode_cuda
+from _C import nms as nms_cuda
 
 def generate_anchors(stride, ratio_vals, scales_vals):
     'Generate anchors coordinates from scales/ratios'

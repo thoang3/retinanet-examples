@@ -8,11 +8,13 @@ import torch.distributed
 import torch.multiprocessing
 
 sys.path.append('/home/tung/playground/retinanet-examples')
+sys.path.append('/home/tung/playground/retinanet-examples/retinanet')
 
-from retinanet import infer, train, utils
-from retinanet.model import Model
-from retinanet import backbones
-from retinanet._C import Engine
+import infer, train, utils
+#from retinanet import infer, train, utils
+from model import Model
+import backbones
+from _C import Engine
 
 
 def parse(args):
@@ -123,6 +125,7 @@ def worker(rank, args, world, model, state):
             raise RuntimeError('Batch size should be a multiple of the number of GPUs')
 
     if args.command == 'train':
+        print("This is worker(), train,  with learning rate: ", args.lr)
         train.train(model, state, args.images, args.annotations,
             args.val_images or args.images, args.val_annotations, args.resize, args.max_size, args.jitter, 
             args.batch, int(args.iters * args.schedule), args.val_iters, not args.full_precision, args.lr, 
@@ -179,7 +182,11 @@ def main(args=None):
 
     model, state = load_model(args, verbose=True)
     if model: model.share_memory()
-
+    print("This is main.py, model summary: ")
+    #print(model.summary())
+    print("This is main.py, state_dict: ")
+    #print(model.state_dict().keys())
+    print("This is main, lr = ", args.lr)
     world = torch.cuda.device_count()
     if args.command == 'export' or world <= 1:
         worker(0, args, 1, model, state)
