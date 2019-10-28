@@ -23,10 +23,11 @@
  Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.02949
  
 
-- It seems like passing new learning rate when resuming training doesn't work. The model still loads previous configuration. 
+- It seems like passing new learning rate when resuming training doesn't work. The model still loads previous configuration. Update: Fixed with the new code!! 
 
 # 10-23-2019
 
+- Test resnet50 with 1 GPU
 - Test resnet50, lr = 0.01, warmup = 5000 => diverge at 2000 iterations
 - Test resnet50, lr = 0.005, warmup = 5000 => diverge at 5700 iterations, however, can run to 8000 iterations when resume. 
 
@@ -34,4 +35,11 @@
  Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.01305
  Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.02578
 
- 
+=> at 360000: mAP = 0.24680 !!!!
+
+
+ # 10-24-2019
+
+- Test resnet34 with 4GPUs, lr = 0.01, rest default => mAP = 0.31481, which is ~3% lower. 
+- Need to train with more iterations. 
+
