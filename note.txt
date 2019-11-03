@@ -23,10 +23,11 @@
  Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.02949
  
 
-- It seems like passing new learning rate when resuming training doesn't work. The model still loads previous configuration. 
+- It seems like passing new learning rate when resuming training doesn't work. The model still loads previous configuration. Update: Fixed with the new code!! 
 
 # 10-23-2019
 
+- Test resnet50 with 1 GPU
 - Test resnet50, lr = 0.01, warmup = 5000 => diverge at 2000 iterations
 - Test resnet50, lr = 0.005, warmup = 5000 => diverge at 5700 iterations, however, can run to 8000 iterations when resume. 
 
@@ -34,4 +35,37 @@
  Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.01305
  Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.02578
 
- 
+=> at 360000: mAP = 0.24680 !!!!
+
+
+ # 10-24-2019
+
+- Test resnet34 with 4GPUs, lr = 0.01, rest default => mAP = 0.31481, which is ~3% lower. 
+- Need to train with more iterations. 
+
+
+# 10-28-2019
+
+- Test resnet50 with 1 GPU: python retinanet/main.py train retinanet_rn50fpn.pth --backbone ResNet50FPN --lr 0.005 --batch 2 --warmup 8000 --iter 480000  --logdir log --milestones 160000 240000
+
+[480000/480000] focal loss: 0.288, box loss: 0.131, 0.316s/2-batch (fw: 0.121s, bw: 0.194s), 6.3 im/s, lr: 5e-05
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.28482
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.44674
+
+- Test resnet34 with 4 GPUs: retinanet train retinanet_rn34fpn.pth --backbone ResNet34FPN --lr 0.01 --iter 240000 --logdir log_resnet34fpn \
+ =>  Cannot replicate authors' results (3% mAP lower, should be 34%).
+
+[240000/240000] focal loss: 0.250, box loss: 0.120, 0.291s/8-batch (fw: 0.100s, bw: 0.190s), 27.5 im/s, lr: 0.0001
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.31647
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.49436
+
+
+# 10-30-2019
+
+- Test resnet34 with 1 GPU:  python retinanet/main.py train retinanet_rn34fpn.pth --backbone ResNet34FPN --lr 0.005 --batch 2 --warmup 8000 --iter 480000  --logdir log_resnet34fpn --milestones 320000 400000
+
+[480000/480000] focal loss: 0.251, box loss: 0.119, 0.233s/2-batch (fw: 0.099s, bw: 0.133s), 8.6 im/s, lr: 5e-05
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.30381
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.47403
+
+- 
