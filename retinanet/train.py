@@ -27,7 +27,7 @@ def train(model, state, path, annotations, val_path, val_annotations, resize, ma
     # Setup optimizer and schedule
     optimizer = SGD(model.parameters(), lr=lr, weight_decay=0.0001, momentum=0.9) 
 
-    model, optimizer1 = amp.initialize(model, optimizer,
+    model, optimizer = amp.initialize(model, optimizer,
                                       opt_level = 'O2' if mixed_precision else 'O0',
                                       keep_batchnorm_fp32 = True,
                                       loss_scale = 128.0,
