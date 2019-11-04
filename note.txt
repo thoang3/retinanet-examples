@@ -68,4 +68,8 @@
  Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.30381
  Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.47403
 
-- 
+- No change with more training
+
+[640000/640000] focal loss: 0.245, box loss: 0.115, 0.228s/2-batch (fw: 0.096s, bw: 0.130s), 8.8 im/s, lr: 5e-05
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.30800
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.47982 
